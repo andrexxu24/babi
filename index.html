@@ -17,7 +17,6 @@
             overflow: hidden;
         }
 
-        /* Background images */
         .background-images {
             position: absolute;
             top: 0;
@@ -66,48 +65,6 @@
             color: red;
         }
 
-        /* Position hearts in quiz container */
-        .quiz-container .heart-icon.top-left {
-            top: 5px;
-            left: 5px;
-        }
-
-        .quiz-container .heart-icon.top-right {
-            top: 5px;
-            right: 5px;
-        }
-
-        .quiz-container .heart-icon.bottom-left {
-            bottom: 5px;
-            left: 5px;
-        }
-
-        .quiz-container .heart-icon.bottom-right {
-            bottom: 5px;
-            right: 5px;
-        }
-
-        /* Position hearts in letter container */
-        .letter-container .heart-icon.top-left {
-            top: 5px;
-            left: 5px;
-        }
-
-        .letter-container .heart-icon.top-right {
-            top: 5px;
-            right: 5px;
-        }
-
-        .letter-container .heart-icon.bottom-left {
-            bottom: 5px;
-            left: 5px;
-        }
-
-        .letter-container .heart-icon.bottom-right {
-            bottom: 5px;
-            right: 5px;
-        }
-
         h1 {
             color: #ff6f61;
             font-family: 'Georgia', serif;
@@ -153,7 +110,6 @@
             position: relative;
         }
 
-        /* Heart Animation */
         .confetti {
             position: absolute;
             top: 0;
@@ -186,12 +142,10 @@
             50% { transform: rotate(90deg); }
         }
 
-        /* Fade-in effect */
         @keyframes fadeIn {
             to { opacity: 1; }
         }
 
-        /* Zoom in for letter reveal */
         @keyframes zoomIn {
             from { transform: scale(0.8); opacity: 0; }
             to { transform: scale(1); opacity: 1; }
@@ -238,13 +192,7 @@
     <i class="heart-icon bottom-right">❤️</i>
     
     <h1>Happy Monthsary!</h1>
-    <p>Happy 2nd Months of love babii ko, thank you for all the love and I'm so happy to have you in my life😇 sobrang bilis ng panahon parang kaylan lng tayo nagkakilala. I know na marami pa tayong dadaanan at alam kung hindi madali yon pero kakayanin natin lagi yan kasi anjan si Lord na gagabay satin babii😇 sorry din po minsan ay hindi tayo nag kakaintindihan babii, kahit anong situation natin sobrang mahal na mahal po kita palagi babii, wala napo talaga akong gustong ibang makasama kundi ikaw lang po palagi babii. Hindi man ako perpekto boyfriend but ginagawa ko po lahat para maging better saiyo babii. 
-
-Cheers to more months, year and unforgettable memories with us babii, God knows how much I love you, every night you're always part of my prayers😇❤️
-
-Mag ingat kapo palagi jan babii ko, alagaan mo po sarili mo ah? Pag mag kasama na tayo ako napo mag aalaga sayo babii, maghihintay po ako sa tamang panahon na tayo ay magkasama ng matagal babii kahit matagal hindi po ako magsasawang mahalin❤️
-
-I love you, I love you so much babii🥰🥰🥰 hindi ko po nakalimutan ang araw nato babii, pasensya po kung na late ako mag greet babii ko mwuaah mwuaah mwuaah😘😘😘 ❤️</p>
+    <p>Happy 2nd Months of love babii ko, thank you for all the love and I'm so happy to have you in my life😇...</p>
 </div>
 
 <script>
@@ -255,6 +203,7 @@ I love you, I love you so much babii🥰🥰🥰 hindi ko po nakalimutan ang ara
     ];
 
     let currentQuestionIndex = 0;
+    let correctAnswers = 0; // Track number of correct answers
 
     // Function to show the current question
     function showQuestion() {
@@ -272,19 +221,30 @@ I love you, I love you so much babii🥰🥰🥰 hindi ko po nakalimutan ang ara
         if (Array.isArray(correctAnswer)) {
             if (correctAnswer.some(ans => ans.toLowerCase() === answer)) {
                 messageElement.textContent = "Correct! ❤️";
-                showLetter();
+                correctAnswers++; // Increment correct answer count
+                currentQuestionIndex++; // Move to the next question
+                answerInput.value = ''; // Clear input
+                if (currentQuestionIndex < questions.length) {
+                    showQuestion(); // Show next question
+                } else {
+                    showLetter(); // Show letter after last question
+                }
             } else {
                 messageElement.textContent = "Try again! 😢";
             }
         } else if (answer === correctAnswer.toLowerCase()) {
             messageElement.textContent = "Correct! ❤️";
-            showLetter();
+            correctAnswers++; // Increment correct answer count
+            currentQuestionIndex++; // Move to the next question
+            answerInput.value = ''; // Clear input
+            if (currentQuestionIndex < questions.length) {
+                showQuestion(); // Show next question
+            } else {
+                showLetter(); // Show letter after last question
+            }
         } else {
             messageElement.textContent = "Try again! 😢";
         }
-        
-        // Clear the input field
-        answerInput.value = '';
     }
 
     // Function to show the letter after completing the quiz
@@ -301,7 +261,7 @@ I love you, I love you so much babii🥰🥰🥰 hindi ko po nakalimutan ang ara
             heart.style.left = Math.random() * 100 + "vw";
             confetti.appendChild(heart);
         }
-        
+
         setTimeout(() => {
             confetti.style.display = "none"; // Hide confetti after 5 seconds
             const hearts = document.querySelectorAll(".heart");
@@ -314,7 +274,6 @@ I love you, I love you so much babii🥰🥰🥰 hindi ko po nakalimutan ang ara
 
     // Make letter container initially hidden
     document.getElementById("letter").style.display = "none";
-
 </script>
 </body>
 </html>
