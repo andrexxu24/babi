@@ -52,9 +52,9 @@
         }
 
         .letter-container {
-            display: none;
+            display: none; /* Initially hidden */
             opacity: 0;
-            transform: scale(0.8); /* Zoom out initially */
+            animation: fadeIn 1s forwards; /* Fade-in effect when shown */
         }
 
         /* Heart icons in the message box */
@@ -146,11 +146,6 @@
             to { opacity: 1; }
         }
 
-        @keyframes zoomIn {
-            from { transform: scale(0.8); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-
     </style>
 </head>
 <body>
@@ -199,7 +194,7 @@
     const questions = [
         { question: "When is my birthday babii?", answer: "november 30, 2000" },
         { question: "What city do we want to visit together babii?", answer: ["japan", "maldives", "hongkong"] },
-        { question: "What role I play in Mobile Legends babii?", answer: "all around" }
+        { question: "What role do I play in Mobile Legends babii?", answer: "all around" }
     ];
 
     let currentQuestionIndex = 0;
@@ -231,6 +226,7 @@
                 }
             } else {
                 messageElement.textContent = "Try again! 😢";
+                answerInput.value = ''; // Clear input for retry
             }
         } else if (answer === correctAnswer.toLowerCase()) {
             messageElement.textContent = "Correct! ❤️";
@@ -244,13 +240,16 @@
             }
         } else {
             messageElement.textContent = "Try again! 😢";
+            answerInput.value = ''; // Clear input for retry
         }
     }
 
     // Function to show the letter after completing the quiz
     function showLetter() {
         document.getElementById("quiz").style.display = "none"; // Hide quiz
-        document.getElementById("letter").style.display = "block"; // Show letter
+        const letterContainer = document.getElementById("letter");
+        letterContainer.style.display = "block"; // Show letter
+        letterContainer.style.opacity = 1; // Fade-in effect
 
         // Confetti effect
         const confetti = document.getElementById("confetti");
